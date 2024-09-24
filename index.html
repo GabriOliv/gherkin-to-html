@@ -30,15 +30,16 @@
 <body class="bg-secondary">
 
 	<header>
+
 		<div class="bg-dark collapse" id="navbarHeader">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-8 col-md-7 py-4">
-						<h4 class="text-white">Sobre</h4>
-						<p class="text-muted">
-							Generator of  HTML with Gherkin code highlighted.<br>
+						<h4 class="text-white">About</h4>
+						<p class="text-white">
+							Generator of HTML with Gherkin code highlighted.<br>
 							Useful for blog posts, or forum comments.<br>
-							Supports pt-BR and en-US language.<br>
+							Use Prism.js to highlight the code.<br>
 						</p>
 					</div>
 					<div class="col-sm-4 offset-md-1 py-4">
@@ -87,148 +88,102 @@
 				</button>
 			</div>
 		</div>
+
 	</header>
 
-	<div class="container col-xs-4 p-1 my-4 bg-dark text-white">
-		<div class="input-group input-group-sm">
-			<span class="input-group-text">
-				<div class="d-sm-none"><i class="bi bi-journal-code"></i></div>
-				<div class="d-none d-sm-inline verticaltext">Gherkin</div>
-			</span>
-			<textarea
-				class="form-control"
-				id="input_field"
-				rows="8"
-				aria-label="With textarea"
-			></textarea>
-		</div>
 
-		<ul class="list-group list-group-horizontal m-2" aria-label="Main Buttons">
-			<button
-				class="btn btn-outline-success list-group-item list-group-item-success list-group-item-action text-center p-0 my-0"
-				type="button"
-				onclick="generate()"
-				aria-label="Generate Button">
+	<div class="container">
 
-				<div class="d-inline"><i class="bi bi-arrow-down-square-fill"></i></div>
-				<div class="d-none d-sm-inline">Generate</div>
-			</button>
-
-			<button
-				class="btn btn-outline-danger list-group-item list-group-item-danger list-group-item-action text-center p-0 my-0"
-				type="button"
-				onclick="clear_all()"
-				aria-label="Clear Button">
-
-				<div class="d-inline"><i class="bi bi-x-square-fill"></i></div>
-				<div class="d-none d-sm-inline">Clear Fields</div>
-			</button>
+		<ul class="position-relative top-0 end-0"></ul>
+			<div class="position-sticky sticky-top">
+				<button id="copyFormatButton" class="btn btn-primary rounded-0" data-clipboard-target="#codeOutput">
+					<i class="bi bi-clipboard"></i>
+					<i class="bi bi-highlighter"></i> Copy Highlight
+				</button>
+			</div>
 		</ul>
 
-		<div class="input-group input-group-sm">
-			<span class="input-group-text">
-				<div class="d-sm-none"><i class="bi bi-filetype-html"></i></div>
-				<div class="d-none d-sm-inline verticaltext">HTML</div>
-			</span>
-
-			<textarea
-				class="form-control"
-				id="output_field"
-				rows="8"
-				aria-label="With textarea"
-			></textarea>
-
-			<button
-				type="button"
-				class="btn btn-outline-primary"
-				data-toggle="tooltip"
-				data-placement="button"
-				title="Copy to Clipboard"
-				data-clipboard-target="#output_field"
-				aria-label="Copy SHA-256 First 5">
-				<div class="d-inline"><i class="bi bi-clipboard"></i></div>
-				<div class="d-none d-sm-inline">Copy</div>
-			</button>
+		<div class="container-fluid gx-0 pb-3">
+			<div class="row gx-0 mt-3 bg-dark p-1">
+				<ul class="col col-md-6 list-group bg-body-secondary rounded-0">
+					<li class="list-group-item rounded-0 text-start">
+						<i class="bi bi-card-list"></i> Gherkin Code</i>
+					</li>
+					<textarea class="form-control rounded-0 border-0 py-0 px-1 mx-0 mt-0 mb-1" id="codeInput" rows="10" style="font-size: small; resize: none; height: 100%; background-color: transparent;"></textarea>
+				</ul>
+				<ul class="col col-md-6 list-group bg-body-secondary rounded-0">
+					<li class="list-group-item rounded-0 text-end">
+						<i class="bi bi-highlighter"></i> Syntax Highlight
+					</li>
+					<pre class="py-0 px-1 mx-0 mt-0 mb-1 rounded-0" style="font-size: small; background-color: transparent;"><code readonly id="codeOutput" class="language-gherkin"></code></pre>
+				</ul>
+			</div>
 		</div>
 
-		<div class="accordion bg-light mt-4" id="accordion">
-			<div class="accordion-item">
-				<h2 class="accordion-header" id="headingThree">
-					<button
-						class="accordion-button collapsed"
-						type="button"
-						data-bs-toggle="collapse"
-						data-bs-target="#collapseThree"
-						aria-expanded="false"
-						aria-controls="collapseThree">
-						Highlights
-					</button>
-				</h2>
-				<div
-					id="collapseThree"
-					class="accordion-collapse collapse"
-					aria-labelledby="headingThree"
-					data-bs-parent="#accordion">
-
-					<div class="accordion-body">
-						<ul class="list-group text-dark">
-							<li class="list-group-item active"><b>Gherkin</b></li>
-							<li class="list-group-item"><b>Language Line:&nbsp;</b># language:</li>
-							<li class="list-group-item"><b>Param Keywords:&nbsp;</b>Feature/Funcionalidade, Background/Contexto ...</li>
-							<li class="list-group-item"><b>Action Keywords:&nbsp;</b>Given/Dado, When/Quando ...</li>
-						</ul>
-						<ul class="list-group list-group-horizontal-sm">
-							<li class="list-group-item active"><b>Languages Tested</b></li>
-							<li class="list-group-item">en-US</li>
-							<li class="list-group-item">pt-BR</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		  </div>
 	</div>
 
+	<!-- PrismJS scripts -->
+	<script src="prism.js" type="text/javascript"></script>
+
+</body>
+</html>
+
 <script>
-	var btns = document.querySelectorAll('button');
-	var clipboard = new ClipboardJS(btns);
 
-	clipboard.on('success', function (e) {
-		console.info('Action:', e.action);
-		console.info('Text:', e.text);
-		console.info('Trigger:', e.trigger);
-	});
+	// Inport the exampleGherkin variable
+		// Get the Input element
+		const codeInput = document.getElementById('codeInput');
+		codeInput.value = exampleGherkin;
 
-	clipboard.on('error', function (e) {
-		console.info('Action:', e.action);
-		console.info('Text:', e.text);
-		console.info('Trigger:', e.trigger);
-	});
+		const codeOutput = document.getElementById('codeOutput');
 
-	document.getElementById('input_field').addEventListener('keydown', function(e) {
-		if (e.key == 'Tab') {
-			e.preventDefault();
-			var start = this.selectionStart;
-			var end = this.selectionEnd;
+		updateCodeOutput();
 
-			this.value = this.value.substring(0, start) +
-			"\t" + this.value.substring(end);
 
-			this.selectionStart =
-			this.selectionEnd = start + 1;
-		}
-	});
+	// Event Listener
+		codeInput.addEventListener('input', function() {
+			updateCodeOutput();
+		});
+
+
+	// PrismJS Update
+		function updateCodeOutput() {
+			codeOutput.innerHTML = codeInput.value;
+
+			Prism.highlightAll();
+		};
+
+
+	// TAB KEY
+		document.getElementById('codeInput').addEventListener('keydown', function(e) {
+			if (e.key == 'Tab') {
+				e.preventDefault();
+				var start = this.selectionStart;
+				var end = this.selectionEnd;
+
+				this.value = this.value.substring(0, start) +
+				"\t" + this.value.substring(end);
+
+				this.selectionStart =
+				this.selectionEnd = start + 1;
+			}
+		});
+
+
+	// ClipboardJS LOG
+		var btns = document.querySelectorAll('button');
+		var clipboard = new ClipboardJS(btns);
+
+		clipboard.on('success', function (e) {
+			console.info('Action:', e.action);
+			console.info('Text:', e.text);
+			console.info('Trigger:', e.trigger);
+		});
+
+		clipboard.on('error', function (e) {
+			console.info('Action:', e.action);
+			console.info('Text:', e.text);
+			console.info('Trigger:', e.trigger);
+		});
 
 </script>
-
-<style>
-
-.verticaltext {
-	-webkit-transform: rotate(-90deg);
-	-moz-transform: rotate(-90deg);
-	-ms-transform: rotate(-90deg);
-	-o-transform: rotate(-90deg);
-}
-
-</style>
-
-</body></html>
