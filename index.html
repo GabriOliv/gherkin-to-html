@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en" dir="ltr"><head>
 
 	<!-- Metadata -->
 	<title>Gherkin to HTML</title>
@@ -37,22 +37,19 @@
 					<div class="col-sm-8 col-md-7 py-4">
 						<h4 class="text-white">About</h4>
 						<p class="text-white">
-							Generator of HTML with Gherkin code highlighted.<br>
-							Useful for blog posts, or forum comments.<br>
-							Use Prism.js to highlight the code.<br>
+							Generator of HTML with highlighted Gherkin code.<br>
+							Perfect for showcasing Gherkin code in blog posts or forum comments.<br>
+							Powered by Prism.js for beautiful code highlighting.<br>
 						</p>
 					</div>
 					<div class="col-sm-4 offset-md-1 py-4">
 						<h4 class="text-white">Contacts</h4>
 						<ul class="list-unstyled">
-							<li><a class="text-info text-decoration-none" href="https://github.com/GabriOliv">
+							<li><a class="text-info text-decoration-none fs-5" href="https://github.com/GabriOliv">
 								<i class="bi bi-github"></i> GitHub
 							</a></li>
-							<li><a class="text-light text-decoration-none" href="https://github.com/GabriOliv/gherkin-to-html">
-								<i class="bi bi-archive"></i> Git Repository
-							</a></li>
-							<li><a class="text-light text-decoration-none" href="https://github.com/GabriOliv/gherkin-to-html/issues">
-								<i class="bi bi-chat-square-dots"></i> Suggest Changes
+							<li><a class="text-warning text-decoration-none fs-5" href="https://github.com/GabriOliv/gherkin-to-html">
+								<i class="bi bi-star"></i> Give a Star to the Project
 							</a></li>
 						</ul>
 					</div>
@@ -96,7 +93,7 @@
 
 		<ul class="position-relative top-0 end-0"></ul>
 			<div class="position-sticky sticky-top">
-				<button id="copyFormatButton" class="btn btn-primary rounded-0" data-clipboard-target="#codeOutput">
+				<button id="copyFormatButton" class="btn btn-primary rounded-0" data-clipboard-target="#codeOutput" aria-label="Copy Formatted Code">
 					<i class="bi bi-clipboard"></i>
 					<i class="bi bi-highlighter"></i> Copy Highlight
 				</button>
@@ -109,13 +106,13 @@
 					<li class="list-group-item rounded-0 text-start">
 						<i class="bi bi-card-list"></i> Gherkin Code</i>
 					</li>
-					<textarea class="form-control rounded-0 border-0 py-0 px-1 mx-0 mt-0 mb-1" id="codeInput" rows="10" style="font-size: small; resize: none; height: 100%; background-color: transparent;"></textarea>
+					<textarea class="form-control rounded-0 border-0 py-0 px-1 mx-0 mt-0 mb-1" id="codeInput" rows="10" style="font-size: small; resize: none; height: 100%; background-color: transparent;" aria-label="Code Input"></textarea>
 				</ul>
 				<ul class="col col-md-6 list-group bg-body-secondary rounded-0">
 					<li class="list-group-item rounded-0 text-end">
 						<i class="bi bi-highlighter"></i> Syntax Highlight
 					</li>
-					<pre class="py-0 px-1 mx-0 mt-0 mb-1 rounded-0" style="font-size: small; background-color: transparent;"><code readonly id="codeOutput" class="language-gherkin"></code></pre>
+					<pre class="py-0 px-1 mx-0 mt-0 mb-1 rounded-0" style="font-size: small; background-color: transparent;" aria-label="Code Output"><code readonly id="codeOutput" class="language-gherkin"></code></pre>
 				</ul>
 			</div>
 		</div>
@@ -131,12 +128,8 @@
 <script>
 
 	// Inport the exampleGherkin variable
-		// Get the Input element
-		const codeInput = document.getElementById('codeInput');
+		let codeInput = document.getElementById('codeInput');
 		codeInput.value = exampleGherkin;
-
-		const codeOutput = document.getElementById('codeOutput');
-
 		updateCodeOutput();
 
 
@@ -148,6 +141,9 @@
 
 	// PrismJS Update
 		function updateCodeOutput() {
+			let codeInput = document.getElementById('codeInput');
+			let codeOutput = document.getElementById('codeOutput');
+
 			codeOutput.innerHTML = codeInput.value;
 
 			Prism.highlightAll();
@@ -171,8 +167,8 @@
 
 
 	// ClipboardJS LOG
-		var btns = document.querySelectorAll('button');
-		var clipboard = new ClipboardJS(btns);
+		let btn = document.getElementById('copyFormatButton');
+		let clipboard = new ClipboardJS(btn);
 
 		clipboard.on('success', function (e) {
 			console.info('Action:', e.action);
